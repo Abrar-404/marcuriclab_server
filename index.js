@@ -44,12 +44,17 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     // await client.connect();
 
-    const featureCardCollection = client
-      .db('xenricDB')
-      .collection('featureCards');
+    const userCollection = client
+      .db('marcuriclab')
+      .collection('userData');
 
 
-
+   app.post('/userData', async (req, res) => {
+     const userAdd = req.body;
+     console.log(userAdd);
+     const result = await userCollection.insertOne(userAdd);
+     res.send(result);
+   });
 
     // Send a ping to confirm a successful connection
     await client.db('admin').command({ ping: 1 });
